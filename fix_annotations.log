@@ -1,0 +1,74 @@
+2025-05-08 19:45:35,414 - __main__ - INFO - Processing datasets in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets
+2025-05-08 19:45:35,415 - __main__ - INFO - Processing CODEBRIM dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM
+2025-05-08 19:45:35,415 - __main__ - WARNING - Annotations file E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM\initial_annotations.csv not found, creating new.
+2025-05-08 19:45:35,419 - __main__ - INFO - Found 0 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM
+2025-05-08 19:45:35,420 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:45:35,421 - __main__ - INFO - No unannotated images found in CODEBRIM dataset. All images already have annotations.
+2025-05-08 19:45:35,422 - __main__ - INFO - Processing combined_dataset dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset
+2025-05-08 19:45:35,423 - __main__ - WARNING - Annotations file E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset\initial_annotations.csv not found, creating new.
+2025-05-08 19:45:35,424 - __main__ - INFO - Found 0 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset
+2025-05-08 19:45:35,425 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:45:35,425 - __main__ - INFO - No unannotated images found in combined_dataset dataset. All images already have annotations.
+2025-05-08 19:45:35,425 - __main__ - INFO - Processing Crack_Detection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection
+2025-05-08 19:45:35,433 - __main__ - INFO - Loaded 317 existing annotations from E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection\cleaned_annotations.csv
+2025-05-08 19:45:35,448 - __main__ - INFO - Found 500 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection
+2025-05-08 19:45:35,450 - __main__ - INFO - Found 183 unannotated images
+2025-05-08 19:45:35,477 - __main__ - INFO - Saved 500 annotations to E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection\cleaned_annotations.csv
+2025-05-08 19:45:35,478 - __main__ - INFO - Processing UAV_Inspection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection
+2025-05-08 19:45:35,480 - __main__ - INFO - Loaded 18 existing annotations from E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection\cleaned_annotations.csv
+2025-05-08 19:45:35,482 - __main__ - INFO - Found 6 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection
+2025-05-08 19:45:35,482 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:45:35,483 - __main__ - INFO - No unannotated images found in UAV_Inspection dataset. All images already have annotations.
+2025-05-08 19:45:35,484 - __main__ - INFO - All annotations fixed successfully
+2025-05-08 19:46:35,332 - __main__ - INFO - Processing datasets in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets
+2025-05-08 19:46:35,333 - __main__ - INFO - Processing CODEBRIM dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM
+2025-05-08 19:46:35,333 - __main__ - WARNING - Annotations file E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM\initial_annotations.csv not found, creating new.
+2025-05-08 19:46:35,336 - __main__ - INFO - Found 0 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM
+2025-05-08 19:46:35,336 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:46:35,336 - __main__ - INFO - No unannotated images found in CODEBRIM dataset. All images already have annotations.
+2025-05-08 19:46:35,337 - __main__ - INFO - Processing combined_dataset dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset
+2025-05-08 19:46:35,337 - __main__ - WARNING - Annotations file E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset\initial_annotations.csv not found, creating new.
+2025-05-08 19:46:35,339 - __main__ - INFO - Found 0 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset
+2025-05-08 19:46:35,339 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:46:35,339 - __main__ - INFO - No unannotated images found in combined_dataset dataset. All images already have annotations.
+2025-05-08 19:46:35,340 - __main__ - INFO - Processing Crack_Detection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection
+2025-05-08 19:46:35,346 - __main__ - INFO - Loaded 500 existing annotations from E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection\cleaned_annotations.csv
+2025-05-08 19:46:35,346 - __main__ - INFO - Sample annotation paths: ['Positive\\crack_0000.jpg', 'Positive\\crack_0001.jpg', 'Positive\\crack_0002.jpg', 'Positive\\crack_0003.jpg', 'Positive\\crack_0004.jpg']
+2025-05-08 19:46:35,368 - __main__ - INFO - Found 500 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection
+2025-05-08 19:46:35,368 - __main__ - INFO - Sample image paths: ['Positive\\crack_0000.jpg', 'Positive\\crack_0001.jpg', 'Positive\\crack_0002.jpg', 'Positive\\crack_0003.jpg', 'Positive\\crack_0004.jpg']
+2025-05-08 19:46:35,370 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:46:35,371 - __main__ - INFO - No unannotated images found in Crack_Detection dataset. All images already have annotations.
+2025-05-08 19:46:35,372 - __main__ - INFO - Processing UAV_Inspection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection
+2025-05-08 19:46:35,374 - __main__ - INFO - Loaded 18 existing annotations from E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection\cleaned_annotations.csv
+2025-05-08 19:46:35,376 - __main__ - INFO - Sample annotation paths: ['Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\ade20k.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\pascal_voc.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\test_pycaffe.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_results\\ade20k_probs.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_results\\ade20k_seg.jpg']
+2025-05-08 19:46:35,378 - __main__ - INFO - Found 6 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection
+2025-05-08 19:46:35,378 - __main__ - INFO - Sample image paths: ['images\\crack_image.png', 'images\\crack_typical_result.png', 'images\\crack_typical_results.png', 'images\\sliding_window_results.png', 'images\\sw2.png']
+2025-05-08 19:46:35,379 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:46:35,379 - __main__ - INFO - No unannotated images found in UAV_Inspection dataset. All images already have annotations.
+2025-05-08 19:46:35,380 - __main__ - INFO - All annotations fixed successfully
+2025-05-08 19:46:39,075 - __main__ - INFO - Processing datasets in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets
+2025-05-08 19:46:39,076 - __main__ - INFO - Processing CODEBRIM dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM
+2025-05-08 19:46:39,076 - __main__ - WARNING - Annotations file E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM\initial_annotations.csv not found, creating new.
+2025-05-08 19:46:39,078 - __main__ - INFO - Found 0 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM
+2025-05-08 19:46:39,079 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:46:39,079 - __main__ - INFO - No unannotated images found in CODEBRIM dataset. All images already have annotations.
+2025-05-08 19:46:39,080 - __main__ - INFO - Processing combined_dataset dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset
+2025-05-08 19:46:39,080 - __main__ - WARNING - Annotations file E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset\initial_annotations.csv not found, creating new.
+2025-05-08 19:46:39,081 - __main__ - INFO - Found 0 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset
+2025-05-08 19:46:39,082 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:46:39,082 - __main__ - INFO - No unannotated images found in combined_dataset dataset. All images already have annotations.
+2025-05-08 19:46:39,083 - __main__ - INFO - Processing Crack_Detection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection
+2025-05-08 19:46:39,089 - __main__ - INFO - Loaded 500 existing annotations from E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection\cleaned_annotations.csv
+2025-05-08 19:46:39,089 - __main__ - INFO - Sample annotation paths: ['Positive\\crack_0000.jpg', 'Positive\\crack_0001.jpg', 'Positive\\crack_0002.jpg', 'Positive\\crack_0003.jpg', 'Positive\\crack_0004.jpg']
+2025-05-08 19:46:39,104 - __main__ - INFO - Found 500 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection
+2025-05-08 19:46:39,104 - __main__ - INFO - Sample image paths: ['Positive\\crack_0000.jpg', 'Positive\\crack_0001.jpg', 'Positive\\crack_0002.jpg', 'Positive\\crack_0003.jpg', 'Positive\\crack_0004.jpg']
+2025-05-08 19:46:39,106 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:46:39,107 - __main__ - INFO - No unannotated images found in Crack_Detection dataset. All images already have annotations.
+2025-05-08 19:46:39,107 - __main__ - INFO - Processing UAV_Inspection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection
+2025-05-08 19:46:39,109 - __main__ - INFO - Loaded 18 existing annotations from E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection\cleaned_annotations.csv
+2025-05-08 19:46:39,110 - __main__ - INFO - Sample annotation paths: ['Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\ade20k.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\pascal_voc.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\test_pycaffe.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_results\\ade20k_probs.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_results\\ade20k_seg.jpg']
+2025-05-08 19:46:39,111 - __main__ - INFO - Found 6 total images in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection
+2025-05-08 19:46:39,111 - __main__ - INFO - Sample image paths: ['images\\crack_image.png', 'images\\crack_typical_result.png', 'images\\crack_typical_results.png', 'images\\sliding_window_results.png', 'images\\sw2.png']
+2025-05-08 19:46:39,112 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:46:39,112 - __main__ - INFO - No unannotated images found in UAV_Inspection dataset. All images already have annotations.
+2025-05-08 19:46:39,114 - __main__ - INFO - All annotations fixed successfully

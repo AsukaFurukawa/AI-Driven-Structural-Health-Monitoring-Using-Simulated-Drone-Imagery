@@ -1,0 +1,15 @@
+2025-05-08 19:48:48,843 - __main__ - INFO - Starting UAV_Inspection annotation fixing
+2025-05-08 19:48:48,847 - __main__ - INFO - Loaded 18 existing annotations
+2025-05-08 19:48:48,852 - __main__ - INFO - Found 172 total images
+2025-05-08 19:48:48,853 - __main__ - INFO - Found 154 unannotated images
+2025-05-08 19:48:48,865 - __main__ - INFO - Saved 172 annotations to E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection\cleaned_annotations.csv
+2025-05-08 19:48:48,866 - __main__ - INFO - Successfully fixed UAV_Inspection annotations
+2025-05-08 19:49:28,901 - __main__ - INFO - Starting UAV_Inspection annotation fixing
+2025-05-08 19:49:28,907 - __main__ - INFO - Loaded 172 existing annotations
+2025-05-08 19:49:28,915 - __main__ - INFO - Sample existing annotations: ['Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\ade20k.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\pascal_voc.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\test_pycaffe.jpg']
+2025-05-08 19:49:28,960 - __main__ - INFO - Found 344 total images in UAV_Inspection
+2025-05-08 19:49:28,960 - __main__ - INFO - Sample image paths: ['Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\ade20k.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\pascal_voc.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_images\\test_pycaffe.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_results\\ade20k_probs.jpg', 'Segmentation\\models\\PSPNet-Keras-tensorflow\\example_results\\ade20k_seg.jpg']
+2025-05-08 19:49:28,960 - __main__ - INFO - Sample normalized annotated paths: ['segmentation/models/pspnet-keras-tensorflow/example_images/ade20k.jpg', 'segmentation/models/pspnet-keras-tensorflow/example_images/pascal_voc.jpg', 'segmentation/models/pspnet-keras-tensorflow/example_images/test_pycaffe.jpg']
+2025-05-08 19:49:28,961 - __main__ - INFO - Found 0 unannotated images
+2025-05-08 19:49:28,961 - __main__ - INFO - No unannotated images found. Nothing to do.
+2025-05-08 19:49:28,962 - __main__ - INFO - Successfully fixed UAV_Inspection annotations

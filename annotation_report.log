@@ -1,0 +1,51 @@
+2025-05-08 19:47:23,680 - __main__ - INFO - Processing datasets in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets
+2025-05-08 19:47:23,681 - __main__ - INFO - Generating report for CODEBRIM dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM
+2025-05-08 19:47:23,691 - __main__ - INFO - Found 0 total images
+2025-05-08 19:47:23,693 - __main__ - INFO - Generating report for combined_dataset dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset
+2025-05-08 19:47:23,693 - __main__ - INFO - Found 0 total images
+2025-05-08 19:47:23,694 - __main__ - INFO - Generating report for Crack_Detection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection
+2025-05-08 19:47:23,698 - __main__ - INFO - Loaded 500 cleaned annotations
+2025-05-08 19:47:23,706 - __main__ - INFO - Found 500 total images
+2025-05-08 19:47:26,617 - __main__ - INFO - Generating report for UAV_Inspection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection
+2025-05-08 19:47:26,619 - __main__ - INFO - Loaded 18 cleaned annotations
+2025-05-08 19:47:26,623 - __main__ - INFO - Found 172 total images
+2025-05-08 19:47:26,706 - __main__ - INFO - Report saved to E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\annotation_report.csv
+2025-05-08 19:47:26,706 - __main__ - INFO - Total images: 672
+2025-05-08 19:47:26,706 - __main__ - INFO - Annotated images: 518 (77.1%)
+2025-05-08 19:47:26,707 - __main__ - INFO - Unannotated images: 154 (22.9%)
+2025-05-08 19:47:26,712 - __main__ - INFO - Dataset 'Crack_Detection': 500/500 images annotated (100.0%)
+2025-05-08 19:47:26,713 - __main__ - INFO - Dataset 'UAV_Inspection': 18/172 images annotated (10.5%)
+2025-05-08 19:49:57,574 - __main__ - INFO - Processing datasets in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets
+2025-05-08 19:49:57,575 - __main__ - INFO - Generating report for CODEBRIM dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM
+2025-05-08 19:49:57,576 - __main__ - INFO - Found 0 total images
+2025-05-08 19:49:57,578 - __main__ - INFO - Generating report for combined_dataset dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset
+2025-05-08 19:49:57,579 - __main__ - INFO - Found 0 total images
+2025-05-08 19:49:57,580 - __main__ - INFO - Generating report for Crack_Detection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection
+2025-05-08 19:49:57,585 - __main__ - INFO - Loaded 500 cleaned annotations
+2025-05-08 19:49:57,595 - __main__ - INFO - Found 500 total images
+2025-05-08 19:50:01,272 - __main__ - INFO - Generating report for UAV_Inspection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection
+2025-05-08 19:50:01,274 - __main__ - INFO - Loaded 172 cleaned annotations
+2025-05-08 19:50:01,278 - __main__ - INFO - Found 172 total images
+2025-05-08 19:50:01,757 - __main__ - INFO - Report saved to E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\annotation_report.csv
+2025-05-08 19:50:01,758 - __main__ - INFO - Total images: 672
+2025-05-08 19:50:01,758 - __main__ - INFO - Annotated images: 672 (100.0%)
+2025-05-08 19:50:01,758 - __main__ - INFO - Unannotated images: 0 (0.0%)
+2025-05-08 19:50:01,760 - __main__ - INFO - Dataset 'Crack_Detection': 500/500 images annotated (100.0%)
+2025-05-08 19:50:01,762 - __main__ - INFO - Dataset 'UAV_Inspection': 172/172 images annotated (100.0%)
+2025-05-08 19:55:55,007 - __main__ - INFO - Processing datasets in E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets
+2025-05-08 19:55:55,008 - __main__ - INFO - Generating report for CODEBRIM dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\CODEBRIM
+2025-05-08 19:55:55,009 - __main__ - INFO - Found 0 total images
+2025-05-08 19:55:55,010 - __main__ - INFO - Generating report for combined_dataset dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\combined_dataset
+2025-05-08 19:55:55,011 - __main__ - INFO - Found 0 total images
+2025-05-08 19:55:55,012 - __main__ - INFO - Generating report for Crack_Detection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection
+2025-05-08 19:55:55,017 - __main__ - INFO - Loaded 500 cleaned annotations
+2025-05-08 19:55:55,025 - __main__ - INFO - Found 500 total images
+2025-05-08 19:55:58,345 - __main__ - INFO - Generating report for UAV_Inspection dataset at E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection
+2025-05-08 19:55:58,349 - __main__ - INFO - Loaded 364 cleaned annotations
+2025-05-08 19:55:58,357 - __main__ - INFO - Found 172 total images
+2025-05-08 19:55:58,774 - __main__ - INFO - Report saved to E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\annotation_report.csv
+2025-05-08 19:55:58,775 - __main__ - INFO - Total images: 672
+2025-05-08 19:55:58,775 - __main__ - INFO - Annotated images: 672 (100.0%)
+2025-05-08 19:55:58,775 - __main__ - INFO - Unannotated images: 0 (0.0%)
+2025-05-08 19:55:58,777 - __main__ - INFO - Dataset 'Crack_Detection': 500/500 images annotated (100.0%)
+2025-05-08 19:55:58,778 - __main__ - INFO - Dataset 'UAV_Inspection': 172/172 images annotated (100.0%)

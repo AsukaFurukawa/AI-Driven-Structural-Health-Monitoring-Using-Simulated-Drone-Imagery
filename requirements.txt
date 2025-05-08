@@ -1,0 +1,59 @@
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.21.0
+Pillow>=9.0.0
+PyYAML>=6.0
+
+# Web framework and API
+fastapi>=0.95.0
+uvicorn>=0.22.0
+python-multipart>=0.0.6
+websockets>=11.0.3
+jinja2>=3.1.2
+
+# Data processing and visualization
+pandas>=1.5.0
+matplotlib>=3.7.0
+scikit-learn>=1.2.0
+tqdm>=4.65.0
+
+# Development tools
+pytest>=7.3.1
+pytest-cov>=4.1.0
+
+# Image processing
+opencv-python>=4.5.3
+
+# Utilities
+requests>=2.26.0
+aiofiles>=0.7.0
+python-dotenv>=1.0.0
+joblib>=1.2.0
+
+# Data Processing
+scipy>=1.10.0
+scikit-image>=0.20.0
+
+# Optional: GPU support
+# cuda-python>=12.0.0  # Uncomment if using NVIDIA GPU
+
+# Removed problematic dependencies:
+# tensorflow>=2.8.0
+# kornia>=0.6.0
+# pytesseract>=0.3.10
+# albumentations>=1.0.3
+# imgaug>=0.4.0
+
+# Development Tools
+black>=23.3.0
+flake8>=6.0.0
+
+# Dataset Management
+gitpython>=3.1.0
+dvc>=2.10.0  # Data version control
+fsspec>=2022.5.0  # Filesystem interfaces
+
+# Feature Engineering
+featuretools>=0.24.0  # Automated feature engineering
+shap>=0.41.0  # For model explanations 

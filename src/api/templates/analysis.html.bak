@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structural Health Monitoring - Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: var(--primary-color);">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i class="fas fa-building-shield me-2"></i>
+                <span>AI-Driven Structural Health Monitoring</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="fas fa-tachometer-alt me-1"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/analysis"><i class="fas fa-search me-1"></i> Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reports"><i class="fas fa-chart-bar me-1"></i> Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings"><i class="fas fa-cog me-1"></i> Settings</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <span class="badge rounded-pill bg-light text-dark me-2">
+                        <i class="fas fa-satellite-dish me-1"></i> Live
+                    </span>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-hard-hat me-1"></i> Inspector
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="/profile"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="/settings"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid py-4">
+        <!-- Page Header -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h2 class="mb-1">Structural Analysis</h2>
+                <p class="text-muted mb-0">
+                    <span id="currentDate">{{ current_date }}</span> • 
+                    <span id="refreshIndicator"><i class="fas fa-sync-alt"></i> Last updated: Just now</span>
+                </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary" id="refreshBtn">
+                        <i class="fas fa-sync-alt me-1"></i> Refresh
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" id="exportBtn">
+                        <i class="fas fa-file-export me-1"></i> Export
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Image Analysis Section -->
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0"><i class="fas fa-camera me-2 text-primary"></i> Image Analysis</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Upload an image or capture from camera to detect structural defects</p>
+                        
+                        <!-- Image Source Selector -->
+                        <div class="source-selector mb-3">
+                            <div class="btn-group w-100" role="group">
+                                <button type="button" class="btn btn-outline-primary active" id="uploadBtn">
+                                    <i class="fas fa-upload me-2"></i>Upload
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" id="cameraBtn">
+                                    <i class="fas fa-camera me-2"></i>Camera
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" id="droneViewBtn">
+                                    <i class="fas fa-drone me-2"></i>Drone View
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Upload Area -->
+                        <div id="uploadArea" class="upload-section">
+                            <div class="upload-area" id="dropzone">
+                                <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+                                <p class="mb-1">Drag and drop an image here or click to select</p>
+                                <p class="text-muted small">Supported formats: JPG, JPEG, PNG</p>
+                                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <img id="imagePreview" class="img-fluid rounded" style="max-height: 300px; display: none;" alt="Preview">
+                            </div>
+                            
+                            <div class="mt-3 text-center" id="analyzeButtonContainer" style="display: none;">
+                                <button type="button" class="btn btn-primary" id="analyzeBtn">
+                                    <i class="fas fa-search me-2"></i>Analyze Image
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Camera Capture Area -->
+                        <div id="cameraArea" class="camera-section" style="display: none;">
+                            <div class="camera-container text-center">
+                                <video id="videoElement" class="w-100 rounded" style="max-height: 300px;"></video>
+                                <canvas id="canvasElement" style="display: none;"></canvas>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <button id="captureBtn" class="btn btn-primary">
+                                    <i class="fas fa-camera me-2"></i>Capture
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Drone View Area -->
+                        <div id="droneViewArea" class="drone-section" style="display: none;">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i> Upload a structure image to simulate drone view
+                            </div>
+                        </div>
+                        
+                        <!-- Analysis Results -->
+                        <div id="analysisResults" class="mt-4" style="display: none;">
+                            <hr>
+                            <h5><i class="fas fa-chart-bar me-2 text-primary"></i> Analysis Results</h5>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h6 class="card-subtitle mb-2 text-muted">Detection</h6>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="result-label mb-0">Defects Found:</h5>
+                                                <span class="badge bg-warning" id="defectStatus">3 Defects</span>
+                                            </div>
+                                            <div class="mt-3">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span>Confidence:</span>
+                                                    <span id="confidenceValue">92%</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success" id="confidenceBar" role="progressbar" style="width: 92%" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h6 class="card-subtitle mb-2 text-muted">Defect Types</h6>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Cracks
+                                                    <span class="badge bg-primary rounded-pill">2</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Corrosion
+                                                    <span class="badge bg-primary rounded-pill">1</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Displacement
+                                                    <span class="badge bg-primary rounded-pill">0</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Analysis & Stats Section -->
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0"><i class="fas fa-history me-2 text-primary"></i> Recent Analyses</h5>
+                        <span class="badge bg-primary">{{ total_structures }}</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Bridge A-123</h6>
+                                    <small class="text-muted">3 days ago</small>
+                                </div>
+                                <p class="mb-1">2 defects detected (Medium severity)</p>
+                                <small class="text-muted">Regular inspection</small>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Highway Overpass B-456</h6>
+                                    <small class="text-muted">1 week ago</small>
+                                </div>
+                                <p class="mb-1">1 defect detected (Low severity)</p>
+                                <small class="text-muted">Emergency inspection</small>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Railway Bridge C-789</h6>
+                                    <small class="text-muted">2 weeks ago</small>
+                                </div>
+                                <p class="mb-1">No defects detected</p>
+                                <small class="text-muted">Routine inspection</small>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="/reports" class="text-primary">View All Analysis Reports</a>
+                    </div>
+                </div>
+                
+                <!-- Structure Status -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0"><i class="fas fa-building me-2 text-primary"></i> Structure Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <div class="d-flex flex-column align-items-center">
+                                    <div class="display-6 text-success">{{ healthy_structures }}</div>
+                                    <div class="text-muted">Healthy</div>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="d-flex flex-column align-items-center">
+                                    <div class="display-6 text-warning">{{ warning_structures }}</div>
+                                    <div class="text-muted">Warning</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex flex-column align-items-center">
+                                    <div class="display-6 text-danger">{{ critical_structures }}</div>
+                                    <div class="text-muted">Critical</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex flex-column align-items-center">
+                                    <div class="display-6">{{ total_structures }}</div>
+                                    <div class="text-muted">Total</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="/dashboard" class="text-primary">View Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-4 mt-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">© 2025 AI-Driven Structural Health Monitoring System</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="/terms" class="text-muted me-3">Terms of Service</a>
+                    <a href="/privacy" class="text-muted me-3">Privacy Policy</a>
+                    <a href="/contact" class="text-muted">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize current date
+            const dateElement = document.getElementById('currentDate');
+            if (dateElement) {
+                dateElement.textContent = new Date().toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+            
+            // Setup file upload functionality
+            const uploadBtn = document.getElementById('uploadBtn');
+            const cameraBtn = document.getElementById('cameraBtn');
+            const droneViewBtn = document.getElementById('droneViewBtn');
+            const uploadArea = document.getElementById('uploadArea');
+            const cameraArea = document.getElementById('cameraArea');
+            const droneViewArea = document.getElementById('droneViewArea');
+            const dropzone = document.getElementById('dropzone');
+            const fileInput = document.getElementById('fileInput');
+            const imagePreview = document.getElementById('imagePreview');
+            const analyzeButtonContainer = document.getElementById('analyzeButtonContainer');
+            
+            // Tab switching
+            uploadBtn.addEventListener('click', function() {
+                uploadBtn.classList.add('active');
+                cameraBtn.classList.remove('active');
+                droneViewBtn.classList.remove('active');
+                uploadArea.style.display = 'block';
+                cameraArea.style.display = 'none';
+                droneViewArea.style.display = 'none';
+            });
+            
+            cameraBtn.addEventListener('click', function() {
+                uploadBtn.classList.remove('active');
+                cameraBtn.classList.add('active');
+                droneViewBtn.classList.remove('active');
+                uploadArea.style.display = 'none';
+                cameraArea.style.display = 'block';
+                droneViewArea.style.display = 'none';
+                
+                // Initialize camera
+                initCamera();
+            });
+            
+            droneViewBtn.addEventListener('click', function() {
+                uploadBtn.classList.remove('active');
+                cameraBtn.classList.remove('active');
+                droneViewBtn.classList.add('active');
+                uploadArea.style.display = 'none';
+                cameraArea.style.display = 'none';
+                droneViewArea.style.display = 'block';
+            });
+            
+            // File upload via click
+            dropzone.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function() {
+                handleFileUpload(this.files[0]);
+            });
+            
+            // Drag and drop
+            dropzone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dropzone.classList.add('border-primary');
+            });
+            
+            dropzone.addEventListener('dragleave', function() {
+                dropzone.classList.remove('border-primary');
+            });
+            
+            dropzone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropzone.classList.remove('border-primary');
+                
+                if (e.dataTransfer.files.length) {
+                    handleFileUpload(e.dataTransfer.files[0]);
+                }
+            });
+            
+            // Handle file upload
+            function handleFileUpload(file) {
+                if (file && file.type.match('image.*')) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                        analyzeButtonContainer.style.display = 'block';
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            }
+            
+            // Initialize camera
+            function initCamera() {
+                const videoElement = document.getElementById('videoElement');
+                const captureBtn = document.getElementById('captureBtn');
+                const canvasElement = document.getElementById('canvasElement');
+                
+                // Check if camera access is available
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function(stream) {
+                            videoElement.srcObject = stream;
+                            videoElement.play();
+                        })
+                        .catch(function(error) {
+                            console.error("Error accessing camera: ", error);
+                            alert("Could not access camera. Please ensure you have a camera connected and have granted permission.");
+                        });
+                } else {
+                    alert("Camera not supported in your browser");
+                }
+                
+                // Capture button
+                captureBtn.addEventListener('click', function() {
+                    const context = canvasElement.getContext('2d');
+                    canvasElement.width = videoElement.videoWidth;
+                    canvasElement.height = videoElement.videoHeight;
+                    context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+                    
+                    // Convert to image
+                    const imageData = canvasElement.toDataURL('image/png');
+                    
+                    // Switch to upload tab and show preview
+                    uploadBtn.click();
+                    imagePreview.src = imageData;
+                    imagePreview.style.display = 'block';
+                    analyzeButtonContainer.style.display = 'block';
+                });
+            }
+            
+            // Analysis Button
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const analysisResults = document.getElementById('analysisResults');
+            
+            analyzeBtn.addEventListener('click', function() {
+                // Show loading state
+                analyzeBtn.disabled = true;
+                analyzeBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Analyzing...';
+                
+                // Simulate analysis (in production, this would call the API)
+                setTimeout(function() {
+                    // Show results
+                    analysisResults.style.display = 'block';
+                    
+                    // Reset button
+                    analyzeBtn.disabled = false;
+                    analyzeBtn.innerHTML = '<i class="fas fa-search me-2"></i>Analyze Image';
+                    
+                    // Scroll to results
+                    analysisResults.scrollIntoView({ behavior: 'smooth' });
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html> 

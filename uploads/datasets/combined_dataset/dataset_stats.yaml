@@ -1,0 +1,9 @@
+dataset_distribution:
+  crack_detection: 500
+defect_distribution:
+  Crack: 250
+  No_Defect: 250
+test_images: 75
+total_images: 500
+train_images: 350
+val_images: 75

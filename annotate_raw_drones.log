@@ -1,0 +1,10 @@
+2025-05-08 19:55:13,371 - __main__ - INFO - Starting raw drone image annotation
+2025-05-08 19:55:13,392 - __main__ - INFO - Found 192 raw drone images
+2025-05-08 19:55:13,393 - __main__ - INFO - Sample drone image paths: ['E:\\AI-driven-structMon\\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\\data\\raw\\drone_image_20250507_100141.png', 'E:\\AI-driven-structMon\\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\\data\\raw\\drone_image_20250507_100151.png', 'E:\\AI-driven-structMon\\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\\data\\raw\\drone_image_20250507_100201.png', 'E:\\AI-driven-structMon\\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\\data\\raw\\drone_image_20250507_100211.png', 'E:\\AI-driven-structMon\\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\\data\\raw\\drone_image_20250507_100221.png']
+2025-05-08 19:55:13,405 - __main__ - INFO - Loaded 500 annotations from E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\Crack_Detection\cleaned_annotations.csv
+2025-05-08 19:55:13,408 - __main__ - INFO - Loaded 172 annotations from E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection\cleaned_annotations.csv
+2025-05-08 19:55:13,414 - __main__ - INFO - Combined 672 total annotations
+2025-05-08 19:55:13,472 - __main__ - INFO - Generated 192 new drone annotations
+2025-05-08 19:55:13,477 - __main__ - INFO - Loaded 172 existing annotations from E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection\cleaned_annotations.csv
+2025-05-08 19:55:13,500 - __main__ - INFO - Saved 364 combined annotations to E:\AI-driven-structMon\AI-Driven-Structural-Health-Monitoring-Using-Simulated-Drone-Imagery\uploads\datasets\UAV_Inspection\cleaned_annotations.csv
+2025-05-08 19:55:13,501 - __main__ - INFO - Successfully annotated raw drone images

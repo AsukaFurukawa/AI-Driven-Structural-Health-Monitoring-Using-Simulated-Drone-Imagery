@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Driven Structural Health Monitoring</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .upload-area:hover {
+            border-color: #0d6efd;
+        }
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            margin-top: 20px;
+        }
+        .result-card {
+            display: none;
+            margin-top: 20px;
+        }
+        .training-progress {
+            display: none;
+            margin-top: 20px;
+        }
+        .metrics-card {
+            margin-top: 20px;
+        }
+        .drone-simulation-container {
+            margin-top: 20px;
+        }
+        .drone-view-toggle {
+            margin-bottom: 20px;
+        }
+        .drone-preview {
+            display: none;
+            position: relative;
+        }
+        .drone-controls {
+            margin-top: 10px;
+        }
+        .drone-slider {
+            width: 100%;
+        }
+        .drone-view-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: var(--primary-color);">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-drone-alt me-2" style="font-size: 24px;"></i>
+                <span>AI-Driven Structural Health Monitoring</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#analysis">Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#monitoring">Monitoring</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#training">Training</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid my-4">
+        <!-- System Status Indicator -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card system-status-card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title mb-0">System Status</h5>
+                            <p class="text-muted mb-0">Real-time monitoring system status</p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="status-indicator status-healthy"></div>
+                            <span class="fw-bold text-success">Operational</span>
+                            <span class="ms-3 badge bg-success">Online</span>
+                            <span class="ms-2 small text-muted">Last update: <span id="lastUpdateTime">Just now</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabs for Navigation -->
+        <ul class="nav nav-tabs mb-4" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="analysis-tab" data-bs-toggle="tab" data-bs-target="#analysis" type="button" role="tab" aria-controls="analysis" aria-selected="true">
+                    <i class="fas fa-search me-2"></i>Analysis
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="monitoring-tab" data-bs-toggle="tab" data-bs-target="#monitoring" type="button" role="tab" aria-controls="monitoring" aria-selected="false">
+                    <i class="fas fa-chart-line me-2"></i>Monitoring
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="training-tab" data-bs-toggle="tab" data-bs-target="#training" type="button" role="tab" aria-controls="training" aria-selected="false">
+                    <i class="fas fa-cogs me-2"></i>Training
+                </button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="mainTabsContent">
+            <!-- Analysis Tab -->
+            <div class="tab-pane fade show active" id="analysis" role="tabpanel" aria-labelledby="analysis-tab">
+                <div class="row">
+                    <!-- Left Side - Upload and Analysis -->
+                    <div class="col-lg-7">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex align-items-center">
+                                    <i class="fas fa-camera me-2 text-primary"></i>Image Analysis
+                                </h5>
+                                <p class="text-muted">Upload an image or capture from camera to detect structural defects</p>
+                                
+                                <!-- Image Source Selector -->
+                                <div class="source-selector mb-3">
+                                    <div class="btn-group w-100" role="group">
+                                        <button type="button" class="btn btn-outline-primary active" id="uploadBtn">
+                                            <i class="fas fa-upload me-2"></i>Upload
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary" id="cameraBtn">
+                                            <i class="fas fa-camera me-2"></i>Camera
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary" id="droneSimBtn">
+                                            <i class="fas fa-drone me-2"></i>Drone View
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Upload Area -->
+                                <div id="uploadArea" class="upload-section">
+                                    <div class="upload-area" id="dropzone">
+                                        <i class="fas fa-cloud-upload-alt fa-3x mb-3 pulse"></i>
+                                        <p class="mb-0">Drag and drop an image here or click to select</p>
+                                        <p class="text-muted small">Supported formats: JPG, JPEG, PNG</p>
+                                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                                    </div>
+                                    
+                                    <div class="text-center mt-3">
+                                        <img id="imagePreview" class="preview-image d-none" alt="Preview">
+                                    </div>
+                                </div>
+                                
+                                <!-- Camera Capture Area -->
+                                <div id="cameraArea" class="camera-section d-none">
+                                    <div class="camera-container text-center">
+                                        <video id="videoElement" class="w-100 rounded" style="max-height: 300px;"></video>
+                                        <canvas id="canvasElement" style="display: none;"></canvas>
+                                    </div>
+                                    
+                                    <div class="text-center mt-3">
+                                        <button id="captureBtn" class="btn btn-primary">
+                                            <i class="fas fa-camera me-2"></i>Capture
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Drone Simulation Area -->
+                                <div id="droneSimArea" class="drone-section d-none">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Original Image</label>
+                                                <div class="text-center">
+                                                    <img id="originalImage" class="preview-image mb-2" alt="Original">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Drone View</label>
+                                                <div class="drone-preview">
+                                                    <img id="droneImage" class="preview-image mb-2" alt="Drone View">
+                                                    <div class="drone-view-overlay">
+                                                        <i class="fas fa-drone me-1"></i> Simulated Drone View
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="drone-controls">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="altitudeSlider" class="form-label">Altitude: <span id="altitudeValue">50m</span></label>
+                                                <input type="range" class="form-range drone-slider" id="altitudeSlider" min="10" max="100" value="50">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="angleSlider" class="form-label">Camera Angle: <span id="angleValue">30°</span></label>
+                                                <input type="range" class="form-range drone-slider" id="angleSlider" min="0" max="90" value="30">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                        <label for="rotationSlider" class="form-label">Rotation: <span id="rotationValue">0°</span></label>
+                                        <input type="range" class="form-range drone-slider" id="rotationSlider" min="-45" max="45" value="0">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="weatherSelector" class="form-label">Lighting Condition:</label>
+                                                <select class="form-select" id="weatherSelector">
+                                                    <option value="normal">Normal</option>
+                                                    <option value="sunny">Sunny / High Contrast</option>
+                                                    <option value="cloudy">Cloudy / Low Light</option>
+                                                    <option value="rain">Rain Effect</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between mt-3">
+                                            <button class="btn btn-outline-secondary" id="randomDroneView">
+                                                <i class="fas fa-random me-2"></i>Random View
+                                            </button>
+                                            <button class="btn btn-primary" id="analyzeDroneView">
+                                                <i class="fas fa-search me-2"></i>Analyze Drone View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Loading Indicator -->
+                                <div id="loading" class="text-center my-4 d-none">
+                                    <div class="spinner mb-2"></div>
+                                    <p id="loadingText">Analyzing image...</p>
+                                </div>
+                                
+                                <!-- Error Message -->
+                                <div id="errorMessage" class="alert alert-danger d-none" role="alert">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <span id="errorText">An error occurred.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side - Results -->
+                    <div class="col-lg-5">
+                        <div class="card mb-4" id="predictionCard" style="display: none;">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex align-items-center">
+                                    <i class="fas fa-chart-bar me-2 text-primary"></i>Analysis Results
+                                </h5>
+                                
+                                <div class="text-center mb-4">
+                                    <div class="result-icon mb-2">
+                                        <i id="resultIcon" class="fas fa-question-circle fa-3x"></i>
+                                    </div>
+                                    <h3 id="predictionResult" class="mb-1">Analyzing...</h3>
+                                    <p class="text-muted" id="predictionSubtext">Determining structural health</p>
+                                </div>
+                                
+                                <div class="confidence-container mb-4">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Confidence Level</span>
+                                        <span id="confidenceText">0%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div id="confidenceBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div id="detailedResults">
+                                    <h6 class="mb-2">Detailed Analysis</h6>
+                                    <ul class="list-group" id="probabilitiesList"></ul>
+                                </div>
+                                
+                                <div class="defect-details mt-4 d-none" id="defectDetails">
+                                    <h6 class="mb-2">Defect Characteristics</h6>
+                                    <div class="card bg-light">
+                                        <div class="card-body py-2">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="mb-1 small"><strong>Type:</strong> <span id="defectType">Crack</span></p>
+                                                    <p class="mb-1 small"><strong>Severity:</strong> <span id="defectSeverity">Medium</span></p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p class="mb-1 small"><strong>Size:</strong> <span id="defectSize">12.5 cm</span></p>
+                                                    <p class="mb-1 small"><strong>Location:</strong> <span id="defectLocation">Upper right</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="action-buttons mt-4">
+                                    <div class="d-flex justify-content-between">
+                                        <button class="btn btn-outline-secondary" id="saveResultBtn">
+                                            <i class="fas fa-save me-2"></i>Save Result
+                                        </button>
+                                        <button class="btn btn-primary" id="addToReportBtn">
+                                            <i class="fas fa-file-alt me-2"></i>Add to Report
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Historical Analysis -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex align-items-center">
+                                    <i class="fas fa-history me-2 text-primary"></i>Recent Analyses
+                                </h5>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Sample</th>
+                                                <th>Result</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recentAnalysesList">
+                                            <tr>
+                                                <td>Just now</td>
+                                                <td><img src="#" alt="thumbnail" width="40" height="40" class="rounded"></td>
+                                                <td><span class="badge bg-danger">Defect</span></td>
+                                                <td><button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Monitoring Tab -->
+            <div class="tab-pane fade" id="monitoring" role="tabpanel" aria-labelledby="monitoring-tab">
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex align-items-center">
+                                    <i class="fas fa-building me-2 text-primary"></i>Structure Overview
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="select-structure">
+                                        <select class="form-select" id="structureSelector">
+                                            <option value="bridge1">Highway Bridge #1274</option>
+                                            <option value="bridge2">Railway Bridge #892</option>
+                                            <option value="building1">Office Tower A</option>
+                                            <option value="dam1">Reservoir Dam #33</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-outline-primary me-2" id="viewAllBtn">
+                                            <i class="fas fa-eye me-1"></i>View All
+                                        </button>
+                                        <button class="btn btn-primary" id="scheduleDroneBtn">
+                                            <i class="fas fa-drone me-1"></i>Schedule Inspection
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="structure-viewer">
+                                    <div id="structureViewer" style="height:400px; background:#f8f9fa; border-radius:8px; position:relative;">
+                                        <!-- 3D Model viewer will be initialized by JS -->
+                                        <div class="structure-overlay" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); color:white; padding:10px; border-radius:4px;">
+                                            <h6 class="mb-1">Highway Bridge #1274</h6>
+                                            <p class="mb-0 small">Last inspection: 3 days ago</p>
+                                        </div>
+                                        <!-- Hotspots will be added dynamically -->
+                                        <div class="hotspot pulse" style="position:absolute; top:45%; left:30%; width:20px; height:20px; background:rgba(231, 76, 60, 0.7); border-radius:50%; cursor:pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="Critical defect detected"></div>
+                                        <div class="hotspot pulse" style="position:absolute; top:60%; left:70%; width:20px; height:20px; background:rgba(243, 156, 18, 0.7); border-radius:50%; cursor:pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="Potential crack developing"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex align-items-center">
+                                    <i class="fas fa-chart-line me-2 text-primary"></i>Historical Data
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="sensor-select">
+                                        <select class="form-select" id="sensorSelect">
+                                            <option value="all">All Sensors</option>
+                                            <option value="strain">Strain Gauges</option>
+                                            <option value="vibration">Vibration Sensors</option>
+                                            <option value="temperature">Temperature Sensors</option>
+                                        </select>
+                                    </div>
+                                    <div class="time-range">
+                                        <select class="form-select" id="timeRangeSelect">
+                                            <option value="day">Last 24 Hours</option>
+                                            <option value="week" selected>Last Week</option>
+                                            <option value="month">Last Month</option>
+                                            <option value="year">Last Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="sensorChart" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex align-items-center">
+                                    <i class="fas fa-exclamation-triangle me-2 text-primary"></i>Active Alerts
+                                </h5>
+                                <div class="alert-list">
+                                    <div class="alert alert-danger d-flex align-items-center mb-2">
+                                        <div class="me-3">
+                                            <i class="fas fa-exclamation-circle fa-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">Critical: Structural Crack</h6>
+                                            <p class="mb-0 small">East support column, 3.2m height</p>
+                                            <p class="mb-0 small text-muted">Detected: 2 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-warning d-flex align-items-center mb-2">
+                                        <div class="me-3">
+                                            <i class="fas fa-exclamation-triangle fa-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">Warning: Abnormal Vibration</h6>
+                                            <p class="mb-0 small">Center span, sector B</p>
+                                            <p class="mb-0 small text-muted">Detected: 1 day ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-warning d-flex align-items-center mb-2">
+                                        <div class="me-3">
+                                            <i class="fas fa-exclamation-triangle fa-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">Warning: Surface Erosion</h6>
+                                            <p class="mb-0 small">North side, concrete deck</p>
+                                            <p class="mb-0 small text-muted">Detected: 3 days ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-outline-primary btn-sm">View All Alerts</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Tab -->
+            <div class="tab-pane fade" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex align-items-center">
+                                    <i class="fas fa-tachometer-alt me-2 text-primary"></i>System Performance
+                                </h5>
+                                <div class="dashboard-grid">
+                                    <div class="metric-card">
+                                        <span class="metric-label">Total Structures</span>
+                                        <div class="metric-value">24</div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <span class="metric-label">Alerts</span>
+                                        <div class="metric-value">7</div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <span class="metric-label">Completed Inspections</span>
+                                        <div class="metric-value">128</div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <span class="metric-label">Detection Accuracy</span>
+                                        <div class="metric-value">94.2%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Training Tab -->
+            <div class="tab-pane fade" id="training" role="tabpanel" aria-labelledby="training-tab">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Model Training</h5>
+                                <form id="trainingForm">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="epochs" class="form-label">Epochs</label>
+                                                <input type="number" class="form-control" id="epochs" value="50" min="1">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="batchSize" class="form-label">Batch Size</label>
+                                                <input type="number" class="form-control" id="batchSize" value="32" min="1">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="learningRate" class="form-label">Learning Rate</label>
+                                                <input type="number" class="form-control" id="learningRate" value="0.001" step="0.001" min="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="includeDrone" checked>
+                                            <label class="form-check-label" for="includeDrone">
+                                                Include Drone Imagery in Training
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="modelType" class="form-label">Model Type</label>
+                                        <select class="form-select" id="modelType">
+                                            <option value="cnn">Standard CNN</option>
+                                            <option value="drone_cnn" selected>Drone-aware CNN</option>
+                                            <option value="resnet18">ResNet18</option>
+                                            <option value="efficientnet">EfficientNet</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Start Training</button>
+                                </form>
+
+                                <!-- Training Progress -->
+                                <div class="training-progress" id="trainingProgress">
+                                    <h6 class="mt-4">Training Progress</h6>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" id="trainingBar" role="progressbar"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p>Loss: <span id="currentLoss">-</span></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Accuracy: <span id="currentAccuracy">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metrics Tab -->
+            <div class="tab-pane fade" id="metrics" role="tabpanel" aria-labelledby="metrics-tab">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card metrics-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Model Metrics</h5>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="card bg-light">
+                                            <div class="card-body text-center">
+                                                <h6>Accuracy</h6>
+                                                <h3 id="accuracy">-</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="card bg-light">
+                                            <div class="card-body text-center">
+                                                <h6>Precision</h6>
+                                                <h3 id="precision">-</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="card bg-light">
+                                            <div class="card-body text-center">
+                                                <h6>Recall</h6>
+                                                <h3 id="recall">-</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="card bg-light">
+                                            <div class="card-body text-center">
+                                                <h6>F1 Score</h6>
+                                                <h3 id="f1Score">-</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <h6>Performance on Drone vs. Standard Images</h6>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Metric</th>
+                                                <th>Standard Images</th>
+                                                <th>Drone Images</th>
+                                                <th>Difference</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Accuracy</td>
+                                                <td id="standardAccuracy">-</td>
+                                                <td id="droneAccuracy">-</td>
+                                                <td id="accuracyDiff">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Precision</td>
+                                                <td id="standardPrecision">-</td>
+                                                <td id="dronePrecision">-</td>
+                                                <td id="precisionDiff">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Recall</td>
+                                                <td id="standardRecall">-</td>
+                                                <td id="droneRecall">-</td>
+                                                <td id="recallDiff">-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+        const dronePreview = document.getElementById('dronePreview');
+        const resultCard = document.getElementById('resultCard');
+        const resultAlert = document.getElementById('resultAlert');
+        const confidenceBar = document.getElementById('confidenceBar');
+        const trainingForm = document.getElementById('trainingForm');
+        const trainingProgress = document.getElementById('trainingProgress');
+        const trainingBar = document.getElementById('trainingBar');
+        const currentLoss = document.getElementById('currentLoss');
+        const currentAccuracy = document.getElementById('currentAccuracy');
+        const droneViewToggle = document.getElementById('droneViewToggle');
+        const standardPreviewContainer = document.getElementById('standardPreviewContainer');
+        const dronePreviewContainer = document.getElementById('dronePreviewContainer');
+        const perspectiveSlider = document.getElementById('perspectiveSlider');
+        const rotationSlider = document.getElementById('rotationSlider');
+        const perspectiveValue = document.getElementById('perspectiveValue');
+        const rotationValue = document.getElementById('rotationValue');
+        const regenerateDroneView = document.getElementById('regenerateDroneView');
+        const analyzeDroneView = document.getElementById('analyzeDroneView');
+        const resultsList = document.getElementById('resultsList');
+
+        // Current uploaded image
+        let currentImage = null;
+
+        // Upload area event listeners
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#0d6efd';
+        });
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#ccc';
+        });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            const file = e.dataTransfer.files[0];
+            handleFile(file);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            handleFile(file);
+        });
+
+        // Toggle between standard and drone view
+        droneViewToggle.addEventListener('change', () => {
+            if (droneViewToggle.checked) {
+                standardPreviewContainer.style.display = 'none';
+                dronePreviewContainer.style.display = 'block';
+                
+                // If we have an image uploaded, simulate drone view
+                if (currentImage) {
+                    simulateDroneView();
+                }
+            } else {
+                standardPreviewContainer.style.display = 'block';
+                dronePreviewContainer.style.display = 'none';
+            }
+        });
+
+        // Sliders for drone view parameters
+        perspectiveSlider.addEventListener('input', () => {
+            perspectiveValue.textContent = `${perspectiveSlider.value}%`;
+            simulateDroneView();
+        });
+
+        rotationSlider.addEventListener('input', () => {
+            rotationValue.textContent = `${rotationSlider.value}°`;
+            simulateDroneView();
+        });
+
+        // Random drone view button
+        regenerateDroneView.addEventListener('click', () => {
+            // Set random values for sliders
+            perspectiveSlider.value = Math.floor(Math.random() * 60) + 10;
+            rotationSlider.value = Math.floor(Math.random() * 91) - 45;
+            perspectiveValue.textContent = `${perspectiveSlider.value}%`;
+            rotationValue.textContent = `${rotationSlider.value}°`;
+            simulateDroneView();
+        });
+
+        // Analyze drone view button
+        analyzeDroneView.addEventListener('click', () => {
+            if (dronePreview.src) {
+                // Get the drone image as a blob
+                fetch(dronePreview.src)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], "drone-view.jpg", { type: "image/jpeg" });
+                        uploadForPrediction(file);
+                    });
+            }
+        });
+
+        function handleFile(file) {
+            if (file) {
+                currentImage = file;
+                
+                // Display preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    
+                    // If drone view is active, simulate drone view
+                    if (droneViewToggle.checked) {
+                        simulateDroneView();
+                    }
+                };
+                reader.readAsDataURL(file);
+                
+                // Upload for prediction (standard view)
+                uploadForPrediction(file);
+            }
+        }
+
+        function simulateDroneView() {
+            if (!currentImage) return;
+            
+            // Get parameters from sliders
+            const perspective = perspectiveSlider.value / 100;
+            const rotation = rotationSlider.value;
+            
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('file', currentImage);
+            formData.append('perspective', perspective);
+            formData.append('rotation', rotation);
+            
+            // Send to server for drone simulation
+            fetch('/simulate_drone', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                // Display the simulated drone view
+                const url = URL.createObjectURL(blob);
+                dronePreview.src = url;
+                dronePreview.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error simulating drone view');
+            });
+        }
+
+        function uploadForPrediction(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                displayResult(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultCard.style.display = 'block';
+                resultAlert.className = 'alert alert-danger';
+                resultAlert.textContent = 'Error processing image. Please try again.';
+            });
+        }
+
+        function displayResult(data) {
+            resultCard.style.display = 'block';
+            
+            if (data.highest_class === 'No Defect') {
+                resultAlert.className = 'alert alert-success';
+                resultAlert.textContent = 'No structural defects detected';
+            } else {
+                resultAlert.className = 'alert alert-warning';
+                resultAlert.textContent = `Detected: ${data.highest_class}`;
+            }
+            
+            // Update confidence bar
+            const confidence = data.confidence * 100;
+            confidenceBar.style.width = `${confidence}%`;
+            confidenceBar.textContent = `${confidence.toFixed(1)}%`;
+            
+            if (confidence > 70) {
+                confidenceBar.className = 'progress-bar bg-success';
+            } else if (confidence > 40) {
+                confidenceBar.className = 'progress-bar bg-warning';
+            } else {
+                confidenceBar.className = 'progress-bar bg-danger';
+            }
+            
+            // Show detailed results
+            resultsList.innerHTML = '';
+            if (data.defects) {
+                data.defects.forEach(defect => {
+                    const li = document.createElement('li');
+                    li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                    li.textContent = defect.class;
+                    
+                    const probability = document.createElement('span');
+                    probability.className = 'badge bg-primary rounded-pill';
+                    probability.textContent = `${(defect.probability * 100).toFixed(1)}%`;
+                    
+                    li.appendChild(probability);
+                    resultsList.appendChild(li);
+                });
+            }
+        }
+
+        // Training Form Handling
+        trainingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('epochs', document.getElementById('epochs').value);
+            formData.append('batch_size', document.getElementById('batchSize').value);
+            formData.append('learning_rate', document.getElementById('learningRate').value);
+            formData.append('include_drone', document.getElementById('includeDrone').checked);
+            formData.append('model_type', document.getElementById('modelType').value);
+
+            fetch('/train', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'Training started') {
+                    trainingProgress.style.display = 'block';
+                    connectWebSocket();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error starting training');
+            });
+        });
+
+        // WebSocket Connection
+        function connectWebSocket() {
+            const ws = new WebSocket(`ws://${window.location.host}/ws/training`);
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.error) {
+                    alert(`Training error: ${data.error}`);
+                    return;
+                }
+
+                const progress = (data.current_epoch / data.total_epochs) * 100;
+                trainingBar.style.width = `${progress}%`;
+                currentLoss.textContent = data.loss.toFixed(4);
+                currentAccuracy.textContent = `${(data.accuracy * 100).toFixed(2)}%`;
+
+                if (data.current_epoch === data.total_epochs) {
+                    updateMetrics();
+                }
+            };
+
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+                alert('Error connecting to training updates');
+            };
+        }
+
+        // Metrics Update
+        function updateMetrics() {
+            fetch('/metrics')
+                .then(response => response.json())
+                .then(data => {
+                    // Update main metrics
+                    document.getElementById('accuracy').textContent = `${(data.accuracy * 100).toFixed(2)}%`;
+                    document.getElementById('precision').textContent = `${(data.precision * 100).toFixed(2)}%`;
+                    document.getElementById('recall').textContent = `${(data.recall * 100).toFixed(2)}%`;
+                    document.getElementById('f1Score').textContent = `${(data.f1_score * 100).toFixed(2)}%`;
+                    
+                    // Update per-type metrics if available
+                    if (data.standard && data.drone) {
+                        // Standard images
+                        document.getElementById('standardAccuracy').textContent = `${(data.standard.accuracy * 100).toFixed(2)}%`;
+                        document.getElementById('standardPrecision').textContent = `${(data.standard.precision * 100).toFixed(2)}%`;
+                        document.getElementById('standardRecall').textContent = `${(data.standard.recall * 100).toFixed(2)}%`;
+                        
+                        // Drone images
+                        document.getElementById('droneAccuracy').textContent = `${(data.drone.accuracy * 100).toFixed(2)}%`;
+                        document.getElementById('dronePrecision').textContent = `${(data.drone.precision * 100).toFixed(2)}%`;
+                        document.getElementById('droneRecall').textContent = `${(data.drone.recall * 100).toFixed(2)}%`;
+                        
+                        // Differences
+                        const accDiff = ((data.drone.accuracy - data.standard.accuracy) * 100).toFixed(2);
+                        const precDiff = ((data.drone.precision - data.standard.precision) * 100).toFixed(2);
+                        const recallDiff = ((data.drone.recall - data.standard.recall) * 100).toFixed(2);
+                        
+                        document.getElementById('accuracyDiff').textContent = `${accDiff > 0 ? '+' : ''}${accDiff}%`;
+                        document.getElementById('precisionDiff').textContent = `${precDiff > 0 ? '+' : ''}${precDiff}%`;
+                        document.getElementById('recallDiff').textContent = `${recallDiff > 0 ? '+' : ''}${recallDiff}%`;
+                        
+                        // Color-code differences
+                        document.getElementById('accuracyDiff').classList.add(accDiff >= 0 ? 'text-success' : 'text-danger');
+                        document.getElementById('precisionDiff').classList.add(precDiff >= 0 ? 'text-success' : 'text-danger');
+                        document.getElementById('recallDiff').classList.add(recallDiff >= 0 ? 'text-success' : 'text-danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Initial metrics update
+        updateMetrics();
+    </script>
+</body>
+</html> 
