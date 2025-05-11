@@ -382,7 +382,7 @@ def save_upload(image: Image.Image) -> str:
 async def index(request: Request):
     """Render the home page."""
     # Get data from services for consistent UI
-    statistics = get_statistics()
+    statistics = await get_statistics()
     
     # Build template context
     data = {
@@ -634,7 +634,7 @@ async def reports(request: Request):
 async def settings(request: Request):
     """Render the settings page."""
     # Get data from services for consistent UI
-    statistics = get_statistics()
+    statistics = await get_statistics()
     
     # Build template context
     data = {
@@ -651,7 +651,7 @@ async def settings(request: Request):
 async def analysis(request: Request):
     """Render the analysis page."""
     # Get data from services for consistent UI
-    statistics = get_statistics()
+    statistics = await get_statistics()
     
     # Build template context
     data = {
