@@ -8,6 +8,7 @@ import yaml
 import torch
 import argparse
 from pathlib import Path
+import json
 
 # Add parent directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
@@ -89,34 +90,11 @@ def train_model(model_type="cnn", include_drone=True):
         
         # Save training metrics
         metrics_path = Path(__file__).parent.parent.parent / "metrics.json"
-        
-        # Create mock metrics for drone vs standard comparison
-        import json
-        metrics = {
-            "accuracy": results["best_val_acc"] / 100.0,  # Convert from percentage
-            "precision": 0.85,  # Mock value
-            "recall": 0.86,     # Mock value
-            "f1_score": 0.855   # Mock value
-        }
-        
-        # Add separate metrics for standard and drone images
-        if include_drone:
-            metrics["standard"] = {
-                "accuracy": 0.82,
-                "precision": 0.80,
-                "recall": 0.83
-            }
-            metrics["drone"] = {
-                "accuracy": 0.88,
-                "precision": 0.86,
-                "recall": 0.89
-            }
-        
-        # Save metrics
         with open(metrics_path, 'w') as f:
-            json.dump(metrics, f, indent=4)
+            json.dump(results, f, indent=4)
         
-        logger.info(f"Training completed. Final metrics saved to {metrics_path}")
+        logger.info(f"Training completed! Metrics saved to {metrics_path}")
+        return results
         
     except Exception as e:
         logger.error(f"Error during training: {str(e)}")
